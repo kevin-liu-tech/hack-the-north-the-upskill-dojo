@@ -36,7 +36,7 @@ function fromFile() {
     var format = sdk.AudioStreamFormat.getWaveFormatPCM(44100, 16, 2); //44.1 kHz, 16-bit, 2-channel
     var pushStream = sdk.AudioInputStream.createPushStream(format);
 
-    fs.createReadStream("recordings/test_recording.wav").on('data', function(arrayBuffer) {
+    fs.createReadStream("recordings/test-recording.wav").on('data', function(arrayBuffer) {
         pushStream.write(arrayBuffer.slice());
     }).on('end', function() {
         pushStream.close();
@@ -65,7 +65,6 @@ function fromFile() {
                 }
             break;
         }
-        console.log(`RECOGNIZED: Text=${result.text}`);
         recognizer.close();
     });
 }
@@ -81,5 +80,3 @@ if (port == null || port == "") {
 const listener = app.listen(port, () => {
     console.log("Your app is listening on port " + listener.address().port);
 });
-
-
