@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.post("/uploadAudio", upload.single('recording'), (req, res) => {
     console.log(req.file.filename);
-    res.json({message: "HIII"});
+    res.json({message: "file uploaded"});
 });
 
 let port = process.env.PORT;
