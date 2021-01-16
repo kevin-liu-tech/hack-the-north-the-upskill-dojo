@@ -6,5 +6,23 @@
 </head>
 <body>
 Hello world!
+<input placeholder="Upload recording" id="recording" type="file">
+<button id="submit">Submit</button>
 </body>
+<script>
+    const send = document.getElementById("submit");
+    const recording = document.getElementById("recording");
+    send.addEventListener("click", function () {
+        let formData = new FormData();
+        formData.append('recording', recording.files[0]);
+        fetch('/uploadAudio', {
+            method: "POST",
+            body: formData
+        }).then(result => {
+            result.json().then(result => {
+                alert(result.message);
+            })
+        })
+    });
+</script>
 </html>
