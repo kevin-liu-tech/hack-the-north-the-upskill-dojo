@@ -103,11 +103,11 @@
     }
     </script>
     <h1 id="student3">res.names[2]</h1>
-    <br><br><br><br><p1>Response Duration: <p id="duration"></p> s</p1>
+    <br><br><br><br><p1>Response Duration: <p id="duration"></p></p1>
 
     <br><br><p2>Word Count: <p id="wordCount"></p></p2>
 
-    <br><br><p2>Average Responsiveness: <p id="responsiveness"></p>%</p2>
+    <br><br><p2>Average Responsiveness: <p id="responsiveness"></p></p2>
     <br><p2>Key Phrases: </p2><p id="keyphrases"></p>
 
     <br><br><p3>Creativity: <span id="demo"></span></p3>
@@ -129,8 +129,8 @@
             });
             fetch("/getStats").then(res => {
                 res.json().then(res => {
-                    responsiveness.innerText = res.speakerResponsiveness[2] * 100;
-                    duration.innerText = res.speakingTime[2];
+                    responsiveness.innerText = res.speakerResponsiveness[2] * 100 + " %";
+                    duration.innerText = res.speakingTime[2] + " s";
                     wordCount.innerText = res.wordCount[2];
                     key.innerText = res.key_phrases[2];
                 })
