@@ -108,6 +108,7 @@
     <br><br><p2>Average Word Count: <p id="wordCount"></p></p2>
 
     <br><br><p2>Average Responsiveness: <p id="responsiveness"></p>%</p2>
+    <br><p id="keyphrases"></p>
 
     <br><br><p3>Creativity: <span id="demo"></span></p3>
     <div class="slidecontainer">
@@ -117,6 +118,7 @@
         const duration = document.getElementById("duration");
         const wordCount = document.getElementById("wordCount");
         const responsiveness = document.getElementById("responsiveness");
+        const key = document.getElementById("keyphrases");
         window.onload = () => {
             fetch("/getNames", {
                 method: "GET"
@@ -130,6 +132,7 @@
                     responsiveness.innerText = res.speakerResponsiveness[1] * 100;
                     duration.innerText = res.speakingTime[1];
                     wordCount.innerText = res.wordCount[1];
+                    key.innerText = res.key_phrases[1];
                 })
             });
         }
