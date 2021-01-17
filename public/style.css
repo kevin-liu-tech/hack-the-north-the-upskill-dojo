@@ -1,0 +1,124 @@
+/* mwesigwa-joel-jHvedTh-avo-unsplash 1 */
+
+.bimage {
+    position: absolute;
+    width: 1440px;
+    height: 921px;
+    left: 0px;
+    top: 103px;    
+    mix-blend-mode: darken;
+    filter: blur(25px);
+}
+
+/* Rectangle 1 */
+
+.rectangle1 {
+    position: absolute;
+    width: 1440px;
+    height: 115px;
+    left: 0px;
+    top: -4px;
+    background: #000000;
+}
+
+/* EduTracker */
+
+.h1 {
+    position: absolute;
+    width: 361px;
+    height: 60px;
+    left: 540px;
+    top: 23px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 72px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Helping teachers better support students virtually with data */
+.h2 {
+    position: absolute;
+    width: 907px;
+    height: 149px;
+    left: 87px;
+    top: 287px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 72px;
+    
+    color: #FFFFFF;    
+}
+
+
+/* During the COVID19 pandemic, students can be going through the most difficult times in their life and teachers would not know. By using our file transcription and analysis service, teachers can quickly see students engagement in class and help teachers see which students aren't participating. This would allow teachers to reach out to those students to see if there's any reasoning behind why they're not participating. */
+
+.p {
+    position: absolute;
+    width: 908px;
+    height: 302px;
+    left: 88px;
+    top: 449px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 27px;
+    
+    color: #FFFFFF;    
+}
+
+/* Rectangle 2 */
+
+.rectangle2 {
+    position: absolute;
+    width: 172px;
+    height: 30px;
+    left: 431px;
+    top: 735px;
+    
+    background: #C4C4C4;    
+}
+
+/* Rectangle 3 */
+
+.rectangle3 {
+    position: absolute;
+    width: 275px;
+    height: 56px;
+    left: 88px;
+    top: 724px;
+    
+    background: #FFFFFF;
+    border: 1.5px solid #FFB800;
+    box-sizing: border-box;
+    border-radius: 50px;
+        
+}
+
+/* Watch Our Demo */
+
+p.demo {
+    position: absolute;
+    width: 228px;
+    height: 24px;
+    left: 119px;
+    top: 735px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+
+    color: #000000;
+}
+
+

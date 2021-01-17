@@ -153,16 +153,16 @@ parseFile();
 // post endpoint for uploading files
 app.post("/uploadAudio", upload.single('recording'), (req, res) => {
     console.log(req.file.filename);
-    fs.readFile('recordings/' + req.file.filename, 'utf8', (err, jsonString) => {
+    fs.readFileSync('recordings/' + req.file.filename, 'utf8', async (err, jsonString) => {
         if (err) {
             console.log("error");
             return;
         }
         const json = JSON.parse(jsonString.substring(1));
-        countWords(json);
+        await countWords(json);
     });
 
-    res.json({message: "file uploaded"});
+    res.sendFile(__dirname + "/public/pages/home_page.html");
 });
 
 app.get("/getNames", (req, res) => {
