@@ -49,32 +49,30 @@
 <!--<button id="getNames">Get names</button>-->
 <!--<button id="getStats">Get stats</button>-->
     <script>
-        const getNames = document.getElementById("getNames");
-        const getStats = document.getElementById("getStats");
+        // const getNames = document.getElementById("getNames");
+        // const getStats = document.getElementById("getStats");
         const send = document.getElementById("submit");
         const recording = document.getElementById("recording");
-        getStats.addEventListener("click", function() {
-            fetch("/getStats").then(res => {
-                res.json().then(res => {
-                    console.log(res);
-                })
-            });
-        });
-        getNames.addEventListener("click", function() {
-            fetch("/getNames").then(res => {res.json().then(res => {
-                console.log(res.names);
-            })});
-        });
+        // getStats.addEventListener("click", function() {
+        //     fetch("/getStats").then(res => {
+        //         res.json().then(res => {
+        //             console.log(res);
+        //         })
+        //     });
+        // });
+        // getNames.addEventListener("click", function() {
+        //     fetch("/getNames").then(res => {res.json().then(res => {
+        //         console.log(res.names);
+        //     })});
+        // });
         send.addEventListener("click", function () {
             let formData = new FormData();
             formData.append('recording', recording.files[0]);
             fetch('/uploadAudio', {
                 method: "POST",
                 body: formData
-            }).then(result => {
-                result.json().then(result => {
-                    alert(result.message);
-                })
+            }).then(res => {
+                window.location.href = '/pages/home_page.html';
             })
         });
     </script>
