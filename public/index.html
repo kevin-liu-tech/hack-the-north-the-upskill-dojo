@@ -65,40 +65,40 @@
     <title>Edutrack</title>
 </head>
 <body>
-    <h2>Welcome to Edutrack</h2>
+    <div class = "rectangle"><h1>Welcome to Edutrack</h1></div>
     <input placeholder="Upload recording" id="recording" type="file">
     <button id="submit">Submit</button>
 <!--<button id="getNames">Get names</button>-->
 <!--<button id="getStats">Get stats</button>-->
-</body>
-<script>
-    const getNames = document.getElementById("getNames");
-    const getStats = document.getElementById("getStats");
-    const send = document.getElementById("submit");
-    const recording = document.getElementById("recording");
-    getStats.addEventListener("click", function() {
-        fetch("/getStats").then(res => {
-            res.json().then(res => {
-                console.log(res);
+    <script>
+        const getNames = document.getElementById("getNames");
+        const getStats = document.getElementById("getStats");
+        const send = document.getElementById("submit");
+        const recording = document.getElementById("recording");
+        getStats.addEventListener("click", function() {
+            fetch("/getStats").then(res => {
+                res.json().then(res => {
+                    console.log(res);
+                })
+            });
+        });
+        getNames.addEventListener("click", function() {
+            fetch("/getNames").then(res => {res.json().then(res => {
+                console.log(res.names);
+            })});
+        });
+        send.addEventListener("click", function () {
+            let formData = new FormData();
+            formData.append('recording', recording.files[0]);
+            fetch('/uploadAudio', {
+                method: "POST",
+                body: formData
+            }).then(result => {
+                result.json().then(result => {
+                    alert(result.message);
+                })
             })
         });
-    });
-    getNames.addEventListener("click", function() {
-        fetch("/getNames").then(res => {res.json().then(res => {
-            console.log(res.names);
-        })});
-    });
-    send.addEventListener("click", function () {
-        let formData = new FormData();
-        formData.append('recording', recording.files[0]);
-        fetch('/uploadAudio', {
-            method: "POST",
-            body: formData
-        }).then(result => {
-            result.json().then(result => {
-                alert(result.message);
-            })
-        })
-    });
-</script>
+    </script>
+</body>
 </html>
