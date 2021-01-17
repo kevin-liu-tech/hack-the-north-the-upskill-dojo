@@ -148,7 +148,7 @@ function parseFile() {
       countWords(json);
   });
 }
-// parseFile();
+parseFile();
 
 // post endpoint for uploading files
 app.post("/uploadAudio", upload.single('recording'), (req, res) => {
