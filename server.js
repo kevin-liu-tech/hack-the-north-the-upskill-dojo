@@ -93,7 +93,7 @@ async function key_phrase_extraction(sentences) {
 
   async function keyPhraseExtraction(client){
 
-      const keyPhrasesInput = sentences
+      const keyPhrasesInput = sentences;
       const keyPhraseResult = await client.extractKeyPhrases(keyPhrasesInput);
 
       keyPhraseResult.forEach(document => {
@@ -130,7 +130,7 @@ async function countWords(json) {
         wordCount[speakerID] += json[i].words.length;
         speakingTime[speakerID] += json[i].data_end - json[i].data_start;
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
-        allSentences[speakerID] += (consolidateWords(json[i].words));
+        allSentences[speakerID] += consolidateWords(json[i].words);
     }
     speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
     key_phrases = await key_phrase_extraction(allSentences);
