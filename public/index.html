@@ -21,7 +21,7 @@ Hello world!
             res.json().then(res => {
                 console.log(res);
             })
-        })
+        });
     });
     getNames.addEventListener("click", function() {
         fetch("/getNames").then(res => {res.json().then(res => {
