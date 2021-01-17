@@ -91,12 +91,23 @@
     <title>Student 1</title>
 </head>
 <body>
+    <script>
+        window.onload = () => {
+            fetch("/getNames", {
+            method: "GET"
+            }).then((result) => {
+            result.json().then(res => {
+                document.getElementById("student1").innerHTML = res.names[0];
+            });
+        });
+    }
+    </script>
     <h1 id="student1">res.names[0]</h1>
-    <br><br><br><br><p1>Average Response Duration: <p id="duration"></p></p1>
+    <br><br><br><br><p1>Response Duration: 51 s</p1>
 
-    <br><br><p2>Average Word Count: <p id="wordCount"></p></p2>
+    <br><br><p2>Word Count: 729</p2>
 
-    <br><br><p2>Average Responsiveness: <p id="responsiveness"></p></p2>
+    <br><br><p2>Responsiveness: 7%</p2>
 
     <br><br><p3>Creativity: <span id="demo"></span></p3>
     <div class="slidecontainer">
@@ -104,25 +115,6 @@
         
     </div>
     <script>
-        const duration = document.getElementById("duration");
-        const wordCount = document.getElementById("wordCount");
-        const responsiveness = document.getElementById("responsiveness");
-        window.onload = () => {
-            fetch("/getNames", {
-                method: "GET"
-            }).then((result) => {
-                result.json().then(res => {
-                    document.getElementById("student1").innerHTML = res.names[0];
-                });
-            });
-            fetch("/getStats").then(res => {
-                res.json().then(res => {
-                    responsiveness.innerText = res.speakerResponsiveness[0] * 100 + "%";
-                    duration.innerText = res.speakingTime[0] + "s";
-                    wordCount.innerText = res.wordCount[0];
-                })
-            });
-        };
         var slider = document.getElementById("creativeRange");
         var output = document.getElementById("demo");
         output.innerHTML = slider.value;
