@@ -3,9 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+    body {
+        position: absolute;
+        background-color: #C4C4C4;
+    }
+    h1 {
+        position: absolute;
+        width: 257px;
+        height: 40px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 42px;
+        color: #000000;
+    }
+    .p1 {
+        position: absolute;
+        width: 458px;
+        height: 36px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 35px;
+        color: #000000;
+    }
+    .p2
+    {
+        position: absolute;
+        width: 530px;
+        height: 49px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 35px;
+        color: #000000;
+    }
+    .p3 {
+        position: absolute;
+        width: 152px;
+        height: 30px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 35px;
+        color: #000000;
+    }
+    .slidecontainer{
+        width: 100%;
+    }
+    .slider{
+        -webkit-appearance: none;
+        width: 100%;
+        height: 25 px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity.2s;
+    }
+    .slider:hover {
+        opacity: 1;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    </style>
+    <title>Jordan, Fatmire</title>
 </head>
 <body>
-    Hello Fatmire
+    <h1>Jordan, Fatmire</h1>
+    <br><br><br><br><p1>Average Response Duration: 51 s</p1>
+
+    <br><br><p2>Average Word Count: 729</p2>
+
+    <br><br><p2>Average Responsiveness: 7%</p2>
+
+    <br><br><p3>Creativity: <span id="demo"></span></p3>
+    <div class="slidecontainer">
+        <input type = "range" min="1" max="100" value="57" class="slider" id="creativeRange">
+        
+    </div>
+    <script>
+        var slider = document.getElementById("creativeRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
+
+    <br><br><p3>Critical Thinking: <span id="demo1"></span></p3>
+    <div class="slidecontainer">
+        <input type = "range" min="1" max="100" value="50" class="slider" id="criticalRange">
+        
+    </div>
+
+    <script>
+        var slider = document.getElementById("criticalRange");
+        var out = document.getElementById("demo1");
+        out.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            out.innerHTML = this.value;
+        }
+    </script>
 </body>
 </html>
