@@ -65,11 +65,12 @@ function determineResponsiveness(speakerOrder, speakers) {
 }
 
 function consolidateWords(words) {
-  let wordString = "";
+  let sentenceString = "";
   for (let i = 0; i < words.length; i++) {
-    wordString += words[i].text + " ";
+    sentenceString += words[i].text + " ";
   }
-  return wordString;
+  sentenceString = sentenceString.replace(/ +(?= )/g,'');
+  return sentenceString;
 }
 
 let names;
@@ -78,6 +79,30 @@ let wordCount = [];
 let speakingTime = [];
 let questionsAsked = [];
 let speakerResponsiveness;
+let key_phrases = [];
+
+function key_phrase_extraction(sentences) {
+  "use strict";
+
+  const { TextAnalyticsClient, AzureKeyCredential } = require("@azure/ai-text-analytics");
+  const key = '6d40308d8da843418916be22fef31d14';
+  const endpoint = 'https://text-analyzer-speakers.cognitiveservices.azure.com/';
+
+  const textAnalyticsClient = new TextAnalyticsClient(endpoint,  new AzureKeyCredential(key));
+  let phrases = [];
+
+  async function keyPhraseExtraction(client){
+
+      const keyPhrasesInput = sentences
+      const keyPhraseResult = await client.extractKeyPhrases(keyPhrasesInput);
+
+      keyPhraseResult.forEach(document => {
+          phrases.push(document.keyPhrases);
+      });
+  }
+  keyPhraseExtraction(textAnalyticsClient);
+  return phrases;
+}
 
 function countWords(json) {
     // arrays for holding the statistics
@@ -86,7 +111,7 @@ function countWords(json) {
     speakingTime = [];
     questionsAsked = [];
     // holds the order of the speakers, helps us determine student responsiveness
-    let allWords = [];
+    let allSentences = [];
     let speakerOrder = [];
     // goes through all the text in order of who speaks
     for (let i = 0; i < json.length; i++) {
@@ -97,7 +122,7 @@ function countWords(json) {
             speakingTime.push(json[i].data_end - json[i].data_start);
             questionsAsked.push(findNumQuestions(json[i].words));
             speakerOrder.push(json[i].speaker);
-            allWords.push(consolidateWords(json[i].words));
+            allSentences.push(consolidateWords(json[i].words));
         }
         // continues after all speakers have been added
         speakerOrder.push(json[i].speaker);
@@ -105,11 +130,12 @@ function countWords(json) {
         wordCount[speakerID] += json[i].words.length;
         speakingTime[speakerID] += json[i].data_end - json[i].data_start;
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
-        allWords[speakerID] += (consolidateWords(json[i].words));
+        allSentences[speakerID] += (consolidateWords(json[i].words));
     }
     speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
+    key_phrases = key_phrase_extraction(allSentences);
     names = speakers;
-    console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness);
+    console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness, key_phrases);
 }
 
 function parseFile() {
@@ -145,7 +171,7 @@ app.get("/getNames", (req, res) => {
 });
 
 app.get("/getStats", (req, res) => {
-   res.json({speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness});
+   res.json({speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness, key_phrases});
 });
 
 // sends the audio file to microsoft to transcribe
