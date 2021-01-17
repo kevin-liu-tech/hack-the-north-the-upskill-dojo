@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        #mwesigwa_joel_jhvedth_avo_unsplash_1 {
+            top: 0px;
+            left: 0px;
+            width: 1920px;
+            height: 1080px;
+        }
+        #__p__watch_our_demo {
+            top: 776px;
+            left: 192px;
+            width: 218px;
+            height: 43px;
+            overflow: hidden;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: left;
+            color:#000000;
+        }
+ 
+        #rectangle_3 {
+            top: 764px;
+            left: 117px;
+            width: 370px;
+            height: 62px;
+            -ms-border-radius: 50px;
+            -o-border-radius: 50px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            border-radius: 50px;
+            border: 1.5px solid #ffb800;
+            background:rgba(255,255,255,1);
+        }
+        
+        #__p__during_the_covid19_pandemic__students_can_be_going_through_the_most_difficult_times_in_their_life_and_teachers_would_not_know____by_using_our_file_transcription_and_analysis_service__teachers_can_quickly_see_students_engagement_in_class_and_help_teachers_see_which_students_aren_t_participating____this_would_allow_teachers_to_reach_out_to_those_students_to_see_if_there_s_any_reasoning_behind_why_they_re_not_participating_ {
+            top: 519px;
+            left: 118px;
+            width: 1211px;
+            height: 209px;
+            overflow: hidden;
+            font-family: Poppins;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            color:#FFFFFF;
+        }
+        #__p__helping_teachers_better_support_students_virtually_with_data {
+            top: 357px;
+            left: 117px;
+            width: 1209px;
+            height: 191px;
+            overflow: hidden;
+            font-family: Poppins;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: left;
+            color:#FFFFFF;
+        }
+
+        #__p__edutracker {
+            top: 41px;
+            left: 711px;
+            width: 481px;
+            height: 98px;
+            overflow: hidden;
+            font-family: Poppins;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            color:#FFFFFF;
+        }
+
+        </style>
+        <title>Edutrack</title>
+</head>
+<body>
+    <div id="__p__watch_our_demo" >
+        Watch Our Demo
+    </div>
+    <div id="__p__helping_teachers_better_support_students_virtually_with_data" >
+        Helping teachers better support students virtually with data<br/><br/>    
+    <div id="__p__during_the_covid19_pandemic__students_can_be_going_through_the_most_difficult_times_in_their_life_and_teachers_would_not_know____by_using_our_file_transcription_and_analysis_service__teachers_can_quickly_see_students_engagement_in_class_and_help_teachers_see_which_students_aren_t_participating____this_would_allow_teachers_to_reach_out_to_those_students_to_see_if_there_s_any_reasoning_behind_why_they_re_not_participating_" >
+        During the COVID19 pandemic, students can be going through the most difficult times in their life and teachers would not know. By using our file transcription and analysis service, teachers can quickly see students engagement in class and help teachers see which students aren't participating. This would allow teachers to reach out to those students to see if there's any reasoning behind why they're not participating.<br/><br/><br/><br/>
+    </div>
+    
+    
+    <div class = "rectangle"><h1>Edutrack</h1></div>
+    <br></br>
+    <br></br>
+    <br></br>
+    <h2>Helping teachers better support students virtually with data</h2>
+    <p>During the COVID19 pandemic, students can be going through the most difficult times in their life and teachers would not know. By using our file transcription and analysis service, teachers can quickly see students engagement in class and help teachers see which students aren't participating. This would allow teachers to reach out to those students to see if there's any reasoning behind why they're not participating.</p>
+    <input placeholder="Upload recording" id="recording" type="file">
+    <button id="submit">Submit</button>
+<!--<button id="getNames">Get names</button>-->
+<!--<button id="getStats">Get stats</button>-->
+    <script>
+        const getNames = document.getElementById("getNames");
+        const getStats = document.getElementById("getStats");
+        const send = document.getElementById("submit");
+        const recording = document.getElementById("recording");
+        getStats.addEventListener("click", function() {
+            fetch("/getStats").then(res => {
+                res.json().then(res => {
+                    console.log(res);
+                })
+            });
+        });
+        getNames.addEventListener("click", function() {
+            fetch("/getNames").then(res => {res.json().then(res => {
+                console.log(res.names);
+            })});
+        });
+        send.addEventListener("click", function () {
+            let formData = new FormData();
+            formData.append('recording', recording.files[0]);
+            fetch('/uploadAudio', {
+                method: "POST",
+                body: formData
+            }).then(result => {
+                result.json().then(result => {
+                    alert(result.message);
+                })
+            })
+        });
+    </script>
+</body>
+</html>
