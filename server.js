@@ -38,9 +38,29 @@ function findNumQuestions(words) {
     return numQuestions;
 }
 
-function determineResponsiveness(speakerOrder) {
+function determineResponsiveness(speakerOrder, speakers) {
     // this assumes the first speaker is the teacher
-
+    teacher = speakerOrder[0];
+    speakerResponses = [];
+    for (let i = 0; i < speakers.length; i++) {
+      speakerResponses.push(0);
+    }
+    let teacherQuestions = 0;
+    for (let i = 0; i < speakerOrder.length; i++) {
+      if (speakerOrder[i] === teacher) {
+        teacherQuestions++;
+        let response_index = i + 1;
+        while (speakerOrder[response_index] !== teacher) {
+          currSpeaker = speakerOrder[response_index];
+          speakerResponses[speakers.indexOf(currSpeaker)]++;
+          response_index++;
+        }
+      }
+    }
+    speakerResponsePercentage = [];
+    for (let i = 0; i < speakerResponses.length; i++) {
+      speakerResponses.push(speakerResponses[i] / teacherQuestions);
+    }
 }
 
 function countWords(json) {
@@ -68,9 +88,21 @@ function countWords(json) {
         speakingTime[speakerID] += json[i].data_end - json[i].data_start;
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
     }
-    let speakerResponsiveness = determineResponsiveness(speakerOrder);
-    console.log(speakers, wordCount, speakingTime, questionsAsked);
+    let speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
+    console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness);
 }
+
+function parseFile() {
+  fs.readFile('recordings/' + 'zoom_0.mp4_1.json', 'utf8', (err, jsonString) => {
+      if (err) {
+          console.log("error");
+          return;
+      }
+      const json = JSON.parse(jsonString.substring(1));
+      countWords(json);
+  });
+}
+parseFile();
 
 // post endpoint for uploading files
 app.post("/uploadAudio", upload.single('recording'), (req, res) => {
