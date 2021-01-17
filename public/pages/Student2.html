@@ -88,20 +88,30 @@
         cursor: pointer;
     }
     </style>
-    <title>Jordan, Fatmire</title>
+    <title>Student 2</title>
 </head>
 <body>
-    <h1>Jordan, Fatmire</h1>
-    <br><br><br><br><p1>Average Response Duration: 51 s</p1>
+    <script>
+        window.onload = () => {
+            fetch("/getNames", {
+            method: "GET"
+            }).then((result) => {
+            result.json().then(res => {
+                document.getElementById("student2").innerHTML = res.names[1];
+            });
+        });
+    }
+    </script>
+    <h1 id="student2">res.names[1]</h1>
+    <br><br><br><br><p1>Average Response Duration: 20 s</p1>
 
-    <br><br><p2>Average Word Count: 729</p2>
+    <br><br><p2>Average Word Count: 560</p2>
 
-    <br><br><p2>Average Responsiveness: 7%</p2>
+    <br><br><p2>Average Responsiveness: 42%</p2>
 
     <br><br><p3>Creativity: <span id="demo"></span></p3>
     <div class="slidecontainer">
-        <input type = "range" min="1" max="100" value="57" class="slider" id="creativeRange">
-        
+        <input type = "range" min="1" max="100" value="3" class="slider" id="creativeRange">
     </div>
     <script>
         var slider = document.getElementById("creativeRange");
@@ -115,10 +125,8 @@
 
     <br><br><p3>Critical Thinking: <span id="demo1"></span></p3>
     <div class="slidecontainer">
-        <input type = "range" min="1" max="100" value="50" class="slider" id="criticalRange">
-        
+        <input type = "range" min="1" max="100" value="78" class="slider" id="criticalRange">     
     </div>
-
     <script>
         var slider = document.getElementById("criticalRange");
         var out = document.getElementById("demo1");

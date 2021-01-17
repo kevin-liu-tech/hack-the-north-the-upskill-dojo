@@ -70,9 +70,22 @@
     <h2>Welcome, Mr. Lewis</h2>
     <div class = "rectangle1"><p> 
         Students:
-        <br>1. <a href="Jordan_Fatmire.html">Jordan, Fatmire</a>
-        <br>2. <a href="Maric_Anna.html">Maric, Anna</a>
-        <br>3. <a href="Simonsson_Gulnare.html">Simonsson, Gulnare</a>
+        <script>
+            window.onload = () => {
+                fetch("/getNames", {
+                method: "GET"
+                }).then((result) => {
+                result.json().then(res => {
+                    document.getElementById("student1").innerHTML = res.names[0];
+                    document.getElementById("student2").innerHTML = res.names[1];
+                    document.getElementById("student3").innerHTML = res.names[2];
+                });
+            });
+            }
+        </script>
+        <br>1. <a id="student1" href="Student1.html">res.names[0]</a>
+        <br>2. <a id="student2" href="Student2.html">res.names[1]</a>
+        <br>3. <a id="student3" href="Student3.html">res.names[2]</a>
     </p></div>
 </body>
 </html>
