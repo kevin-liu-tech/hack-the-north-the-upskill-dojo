@@ -40,8 +40,8 @@ function findNumQuestions(words) {
 
 function determineResponsiveness(speakerOrder, speakers) {
     // this assumes the first speaker is the teacher
-    teacher = speakerOrder[0];
-    speakerResponses = [];
+    let teacher = speakerOrder[0];
+    let speakerResponses = [];
     for (let i = 0; i < speakers.length; i++) {
       speakerResponses.push(0);
     }
@@ -50,18 +50,21 @@ function determineResponsiveness(speakerOrder, speakers) {
       if (speakerOrder[i] === teacher) {
         teacherQuestions++;
         let response_index = i + 1;
-        while (speakerOrder[response_index] !== teacher) {
-          currSpeaker = speakerOrder[response_index];
+        while (speakerOrder[response_index] !== teacher && response_index < speakerOrder.length) {
+          let currSpeaker = speakerOrder[response_index];
           speakerResponses[speakers.indexOf(currSpeaker)]++;
           response_index++;
         }
       }
     }
-    speakerResponsePercentage = [];
+    let speakerResponsePercentage = [];
     for (let i = 0; i < speakerResponses.length; i++) {
-      speakerResponses.push(speakerResponses[i] / teacherQuestions);
+      speakerResponsePercentage.push(speakerResponses[i] / teacherQuestions);
     }
+    return speakerResponsePercentage;
 }
+
+let names;
 
 function countWords(json) {
     // arrays for holding the statistics
@@ -89,6 +92,7 @@ function countWords(json) {
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
     }
     let speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
+    names = speakers;
     console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness);
 }
 
@@ -117,6 +121,11 @@ app.post("/uploadAudio", upload.single('recording'), (req, res) => {
     });
 
     res.json({message: "file uploaded"});
+});
+
+app.get("/getNames", (req, res) => {
+    console.log(names);
+    res.json({names: names});
 });
 
 // sends the audio file to microsoft to transcribe

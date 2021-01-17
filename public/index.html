@@ -8,10 +8,17 @@
 Hello world!
 <input placeholder="Upload recording" id="recording" type="file">
 <button id="submit">Submit</button>
+<button id="getNames">Get names</button>
 </body>
 <script>
+    const getNames = document.getElementById("getNames");
     const send = document.getElementById("submit");
     const recording = document.getElementById("recording");
+    getNames.addEventListener("click", function() {
+        fetch("/getNames").then(res => {res.json().then(res => {
+            console.log(res.names);
+        })});
+    });
     send.addEventListener("click", function () {
         let formData = new FormData();
         formData.append('recording', recording.files[0]);
