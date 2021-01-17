@@ -9,11 +9,20 @@ Hello world!
 <input placeholder="Upload recording" id="recording" type="file">
 <button id="submit">Submit</button>
 <button id="getNames">Get names</button>
+<button id="getStats">Get stats</button>
 </body>
 <script>
     const getNames = document.getElementById("getNames");
+    const getStats = document.getElementById("getStats");
     const send = document.getElementById("submit");
     const recording = document.getElementById("recording");
+    getStats.addEventListener("click", function() {
+        fetch("/getStats").then(res => {
+            res.json().then(res => {
+                console.log(res);
+            })
+        })
+    });
     getNames.addEventListener("click", function() {
         fetch("/getNames").then(res => {res.json().then(res => {
             console.log(res.names);

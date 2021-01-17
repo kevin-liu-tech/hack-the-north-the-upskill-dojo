@@ -65,13 +65,18 @@ function determineResponsiveness(speakerOrder, speakers) {
 }
 
 let names;
+let speakers = [];
+let wordCount = [];
+let speakingTime = [];
+let questionsAsked = [];
+let speakerResponsiveness;
 
 function countWords(json) {
     // arrays for holding the statistics
-    let speakers = [];
-    let wordCount = [];
-    let speakingTime = [];
-    let questionsAsked = [];
+    speakers = [];
+    wordCount = [];
+    speakingTime = [];
+    questionsAsked = [];
     // holds the order of the speakers, helps us determine student responsiveness
     let speakerOrder = [];
     // goes through all the text in order of who speaks
@@ -91,7 +96,7 @@ function countWords(json) {
         speakingTime[speakerID] += json[i].data_end - json[i].data_start;
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
     }
-    let speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
+    speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
     names = speakers;
     console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness);
 }
@@ -126,6 +131,10 @@ app.post("/uploadAudio", upload.single('recording'), (req, res) => {
 app.get("/getNames", (req, res) => {
     console.log(names);
     res.json({names: names});
+});
+
+app.get("/getStats", (req, res) => {
+   res.json({speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness});
 });
 
 // sends the audio file to microsoft to transcribe
