@@ -88,22 +88,27 @@
         cursor: pointer;
     }
     </style>
-    <title>Student 2</title>
+    <title>Student 1</title>
 </head>
 <body>
+<<<<<<< Updated upstream:public/pages/Student1.html
     <script>
         window.onload = () => {
             fetch("/getNames", {
             method: "GET"
             }).then((result) => {
             result.json().then(res => {
-                document.getElementById("student2").innerHTML = res.names[1];
+                document.getElementById("student1").innerHTML = res.names[0];
             });
         });
     }
     </script>
-    <h1 id="student2">res.names[1]</h1>
+    <h1 id="student1">res.names[0]</h1>
+    <br><br><br><br><p1>Average Response Duration: 51 s</p1>
+=======
+    <h1>Jordan, Fatmire</h1>
     <br><br><br><br><p1>Average Response Duration: <p id="duration"></p> s</p1>
+>>>>>>> Stashed changes:public/pages/Jordan_Fatmire.html
 
     <br><br><p2>Average Word Count: <p id="wordCount"></p></p2>
 
@@ -111,28 +116,22 @@
 
     <br><br><p3>Creativity: <span id="demo"></span></p3>
     <div class="slidecontainer">
-        <input type = "range" min="1" max="100" value="3" class="slider" id="creativeRange">
+        <input type = "range" min="1" max="100" value="57" class="slider" id="creativeRange">
+        
     </div>
     <script>
         const duration = document.getElementById("duration");
         const wordCount = document.getElementById("wordCount");
         const responsiveness = document.getElementById("responsiveness");
         window.onload = () => {
-            fetch("/getNames", {
-                method: "GET"
-            }).then((result) => {
-                result.json().then(res => {
-                    document.getElementById("student2").innerHTML = res.names[1];
-                });
-            });
             fetch("/getStats").then(res => {
                 res.json().then(res => {
-                    responsiveness.innerText = res.speakerResponsiveness[1] * 100;
-                    duration.innerText = res.speakingTime[1];
-                    wordCount.innerText = res.wordCount[1];
+                    responsiveness.innerText = res.speakerResponsiveness[0];
+                    duration.innerText = res.speakingTime[0];
+                    wordCount.innerText = res.wordCount[0];
                 })
             });
-        }
+        };
         var slider = document.getElementById("creativeRange");
         var output = document.getElementById("demo");
         output.innerHTML = slider.value;
@@ -144,8 +143,10 @@
 
     <br><br><p3>Critical Thinking: <span id="demo1"></span></p3>
     <div class="slidecontainer">
-        <input type = "range" min="1" max="100" value="78" class="slider" id="criticalRange">     
+        <input type = "range" min="1" max="100" value="50" class="slider" id="criticalRange">
+        
     </div>
+
     <script>
         var slider = document.getElementById("criticalRange");
         var out = document.getElementById("demo1");
