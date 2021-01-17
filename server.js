@@ -81,7 +81,7 @@ let questionsAsked = [];
 let speakerResponsiveness;
 let key_phrases = [];
 
-function key_phrase_extraction(sentences) {
+async function key_phrase_extraction(sentences) {
   "use strict";
 
   const { TextAnalyticsClient, AzureKeyCredential } = require("@azure/ai-text-analytics");
@@ -100,11 +100,11 @@ function key_phrase_extraction(sentences) {
           phrases.push(document.keyPhrases);
       });
   }
-  keyPhraseExtraction(textAnalyticsClient);
+  await keyPhraseExtraction(textAnalyticsClient);
   return phrases;
 }
 
-function countWords(json) {
+async function countWords(json) {
     // arrays for holding the statistics
     speakers = [];
     wordCount = [];
@@ -133,7 +133,7 @@ function countWords(json) {
         allSentences[speakerID] += (consolidateWords(json[i].words));
     }
     speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
-    key_phrases = key_phrase_extraction(allSentences);
+    key_phrases = await key_phrase_extraction(allSentences);
     names = speakers;
     console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness, key_phrases);
 }
