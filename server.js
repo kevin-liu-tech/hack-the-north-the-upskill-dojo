@@ -63,6 +63,14 @@ function determineResponsiveness(speakerOrder, speakers) {
     }
 }
 
+function consolidateWords(words) {
+  let wordString = "";
+  for (let i = 0; i < words.length; i++) {
+    wordString += words[i].text + " ";
+  }
+  return wordString;
+}
+
 function countWords(json) {
     // arrays for holding the statistics
     let speakers = [];
@@ -70,6 +78,7 @@ function countWords(json) {
     let speakingTime = [];
     let questionsAsked = [];
     // holds the order of the speakers, helps us determine student responsiveness
+    let allWords = [];
     let speakerOrder = [];
     // goes through all the text in order of who speaks
     for (let i = 0; i < json.length; i++) {
@@ -80,6 +89,7 @@ function countWords(json) {
             speakingTime.push(json[i].data_end - json[i].data_start);
             questionsAsked.push(findNumQuestions(json[i].words));
             speakerOrder.push(json[i].speaker);
+            allWords.push(consolidateWords(json[i].words));
         }
         // continues after all speakers have been added
         speakerOrder.push(json[i].speaker);
@@ -87,6 +97,7 @@ function countWords(json) {
         wordCount[speakerID] += json[i].words.length;
         speakingTime[speakerID] += json[i].data_end - json[i].data_start;
         questionsAsked[speakerID] += findNumQuestions(json[i].words);
+        allWords[speakerID] += (consolidateWords(json[i].words));
     }
     let speakerResponsiveness = determineResponsiveness(speakerOrder, speakers);
     console.log(speakers, wordCount, speakingTime, questionsAsked, speakerResponsiveness);
